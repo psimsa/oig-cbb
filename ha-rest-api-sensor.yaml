@@ -1,0 +1,109 @@
+  - resource: https://cbb.simsa.cz/api/batterybox/getstats
+    scan_interval: 30
+    method: POST
+    payload: '{"email": "[email do oig]", "password": "[heslo do oig]", "unitId": "[id boxu]"}'
+    headers:
+      content-type:  'application/json; charset=utf-8'
+    sensor:
+    - name: "CBB Baterie"
+      unique_id: cbb-fve.battPct
+      value_template: "{{ value_json.batteryPct }}"
+      unit_of_measurement: "%"
+      json_attributes:
+      - batteryPct
+    - name: "CBB Výroba"
+      unique_id: cbb-fve.fvLAll
+      json_attributes:
+      - panelsOutputL1
+      - panelsOutputL2
+      value_template: "{{(value_json.panelsOutputL1 + value_json.panelsOutputL2)}}"
+      device_class: power
+      unit_of_measurement: "W"
+    - name: "CBB Zátěž"
+      unique_id: cbb-fve.acTotal
+      value_template: "{{ value_json.consumptionTotal }}"
+      device_class: power
+      unit_of_measurement: "W"
+      json_attributes:
+      - consumptionTotal
+    - name: "CBB Zátěž L1"
+      unique_id: cbb-fve.acL1
+      value_template: "{{ value_json.consumptionL1 }}"
+      device_class: power
+      unit_of_measurement: "W"
+      json_attributes:
+      - consumptionL1
+    - name: "CBB Zátěž L2"
+      unique_id: cbb-fve.acL2
+      value_template: "{{ value_json.consumptionL2 }}"
+      device_class: power
+      unit_of_measurement: "W"
+      json_attributes:
+      - consumptionL2
+    - name: "CBB Zátěž L3"
+      unique_id: cbb-fve.acL3
+      value_template: "{{ value_json.consumptionL3 }}"
+      device_class: power
+      unit_of_measurement: "W"
+      json_attributes:
+      - consumptionL3
+    - name: "CBB Síť"
+      unique_id: cbb-fve.zTotal
+      value_template: "{{ value_json.gridOutputTotal }}"
+      device_class: power
+      unit_of_measurement: "W"
+      json_attributes:
+      - gridOutputTotal
+    - name: "CBB Výroba Dnes"
+      unique_id: cbb-fve.zTotalDay
+      value_template: "{{ value_json.outputToday }}"
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: "Wh"
+      json_attributes:
+      - outputToday
+    - name: "CBB Spotřeba Dnes"
+      unique_id: cbb-fve.zConsumptionDay
+      value_template: "{{ value_json.consumptionToday }}"
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: "Wh"
+      json_attributes:
+      - consumptionToday
+    - name: "CBB Baterie Nabíjení Dnes"
+      unique_id: cbb-fve.batteryChargeToday
+      value_template: "{{ value_json.batteryChargeToday }}"
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: "Wh"
+      json_attributes:
+      - batteryChargeToday
+    - name: "CBB Baterie Vybíjení Dnes"
+      unique_id: cbb-fve.batteryDischargeToday
+      value_template: "{{ value_json.batteryDischargeToday }}"
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: "Wh"
+      json_attributes:
+      - batteryDischargeToday
+    - name: "CBB Spotřeba ze Sítě Dnes"
+      unique_id: cbb-fve.zGridConsumptionDay
+      value_template: "{{ value_json.gridConsumptionToday }}"
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: "Wh"
+      json_attributes:
+      - gridConsumptionToday
+    - name: "CBB Nadvýroba do Sítě Dnes"
+      unique_id: cbb-fve.zGridDeliveryDay
+      value_template: "{{ value_json.gridDeliveryToday }}"
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: "Wh"
+      json_attributes:
+      - gridDeliveryToday
+    - name: "CBB Režim"
+      unique_id: cbb-fve.operationMode
+      value_template: "{{ value_json.operationMode }}"
+      json_attributes:
+      - operationMode
